@@ -46,11 +46,5 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\dependencies\C#\ByteExtensions\src\ByteExtensions\ByteExtensions.csproj">
-      <Project>{55ec2531-dfe0-4a12-986d-9e553f555b46}</Project>
-      <Name>ByteExtensions</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

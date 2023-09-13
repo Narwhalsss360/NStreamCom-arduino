@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1A360FA-2A6E-4EE8-8377-10C44A94C6B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dependencies", "dependencies", "{3D6BF4F3-87AD-49D0-AAD2-9DF735AF7443}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6A649738-E747-4214-A8D7-200D8EE246E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C#", "C#", "{CA62A05B-8401-4785-9AC5-3EE802EAC216}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStreamCom", "src\C#\NStreamCom\NStreamCom.csproj", "{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C#", "C#", "{DA4B027C-4606-4705-8DF0-2B9117B61C5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C#", "C#", "{62AE6AE9-0AC0-456C-9EA9-C7B9C2C8BC30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStreamComTesterCSharp", "test\C#\NStreamComTesterCSharp\NStreamComTesterCSharp.csproj", "{7F603371-CB3A-4574-8B2B-676DB89190DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ByteExtensions", "dependencies\C#\ByteExtensions\src\ByteExtensions\ByteExtensions.csproj", "{55EC2531-DFE0-4A12-986D-9E553F555B46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EC2531-DFE0-4A12-986D-9E553F555B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EC2531-DFE0-4A12-986D-9E553F555B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EC2531-DFE0-4A12-986D-9E553F555B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EC2531-DFE0-4A12-986D-9E553F555B46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA62A05B-8401-4785-9AC5-3EE802EAC216} = {F1A360FA-2A6E-4EE8-8377-10C44A94C6B6}
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06} = {CA62A05B-8401-4785-9AC5-3EE802EAC216}
+		{DA4B027C-4606-4705-8DF0-2B9117B61C5C} = {6A649738-E747-4214-A8D7-200D8EE246E8}
+		{62AE6AE9-0AC0-456C-9EA9-C7B9C2C8BC30} = {3D6BF4F3-87AD-49D0-AAD2-9DF735AF7443}
+		{7F603371-CB3A-4574-8B2B-676DB89190DD} = {DA4B027C-4606-4705-8DF0-2B9117B61C5C}
+		{55EC2531-DFE0-4A12-986D-9E553F555B46} = {62AE6AE9-0AC0-456C-9EA9-C7B9C2C8BC30}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {441CA3DE-0F9E-470A-A343-C8E5F5B25332}
+	EndGlobalSection
+EndGlobal

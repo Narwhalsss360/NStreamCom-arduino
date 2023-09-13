@@ -4,7 +4,7 @@ namespace NStreamCom
 {
     public static class StreamExtensions
     {
-        public static byte[] ToBytes(this Stream Stream)
+        public static byte[] ReadAll(this Stream Stream)
         {
             byte[] Bytes = new byte[Stream.Length];
             Stream.Seek(0, SeekOrigin.Begin);

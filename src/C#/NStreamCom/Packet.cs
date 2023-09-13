@@ -36,7 +36,7 @@ namespace NStreamCom
         public Packet(Stream Stream)
         {
             Protocol.VerifyStream(Stream);
-            byte[] StreamBytes = Stream.ToBytes();
+            byte[] StreamBytes = Stream.ReadAll();
             ID = BitConverter.ToUInt16(StreamBytes, 0);
             MessageSize = BitConverter.ToUInt16(StreamBytes, 2);
             ushort PacketSize = BitConverter.ToUInt16(StreamBytes, 4);

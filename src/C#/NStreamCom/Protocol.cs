@@ -9,7 +9,7 @@ namespace NStreamCom
 
         public static void VerifyStream(Stream Stream)
         {
-            byte[] StreamBytes = Stream.ToBytes();
+            byte[] StreamBytes = Stream.ReadAll();
             if (StreamBytes.Length < StreamProtocolSize)
                 throw new PacketSizeDataBufferMismatch("Length of Stream was less than minimum");
 

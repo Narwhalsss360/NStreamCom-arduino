@@ -48,7 +48,7 @@ namespace NStreamCom
         {
         }
 
-        Stream GetStreamBytes()
+        public Stream GetStreamBytes()
         {
             MemoryStream StreamBytes = new MemoryStream();
             StreamBytes.Write(BitConverter.GetBytes(ID), 0, 2);

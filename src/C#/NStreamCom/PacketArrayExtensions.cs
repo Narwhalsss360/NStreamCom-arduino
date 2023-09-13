@@ -22,7 +22,7 @@ namespace NStreamCom
                     throw new PacketsIDMismatch("Packets did not have same ID");
                 if (Packet.MessageSize != MessageSize)
                     throw new PacketsMessageSizeMismatch("Packets did not have the same MessageSize");
-                MessageSizeTotal += Packet.PacketSize;
+                MessageSizeTotal += (ushort)Packet.Data.Length;
             }
 
             if (MessageSizeTotal != Packets[0].MessageSize)
@@ -33,7 +33,12 @@ namespace NStreamCom
         {
             MemoryStream[] Streams = new MemoryStream[Packets.Length];
             for (int i = 0; i < Packets.Length; i++)
-                Streams[i] = Packets[i].Data;
+            {
+                Streams[i] = new MemoryStream();
+                Stream StreamBytes = Packets[i].GetStreamBytes();
+                StreamBytes.Seek(0, SeekOrigin.Begin);
+                StreamBytes.CopyTo(Streams[i]);
+            }
             return Streams;
         }
     }

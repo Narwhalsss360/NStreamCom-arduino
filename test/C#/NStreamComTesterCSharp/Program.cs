@@ -24,10 +24,10 @@ void SerializeDeserializeTest()
 
     }
 
+    byte[] RXBytes = RXMessage.Data.GetBuffer();
     for (int i = 0;i < RXMessage.Data.Length; i++)
     {
-        RXMessage.Data.Seek(0, SeekOrigin.Begin);
-        if (Data[i] != RXMessage.Data.ReadByte())
+        if (Data[i] != RXBytes[i])
         {
         }
     }

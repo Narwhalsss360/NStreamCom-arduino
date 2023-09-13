@@ -1,6 +1,0 @@
-[submodule "dependencies/C#"]
-	path = "dependencies/C#"
-	url = git@github.com:Narwhalsss360/ByteExtensions.git
-[submodule "dependencies/C#/ByteExtensions"]
-	path = "dependencies/C#/ByteExtensions"
-	url = git@github.com:Narwhalsss360/ByteExtensions.git

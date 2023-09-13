@@ -17,20 +17,62 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C#", "C#", "{DA4B027C-4606-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NStreamComTesterCSharp", "test\C#\NStreamComTesterCSharp\NStreamComTesterCSharp.csproj", "{7F603371-CB3A-4574-8B2B-676DB89190DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NStreamCom", "src\C++\NStreamCom\NStreamCom.vcxitems", "{D168B786-8986-4B62-854B-6F6750996A8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C++", "C++", "{A6096EF5-DB36-4E30-AA8C-F3D0D0CABD07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C++", "C++", "{C3100846-659A-4F3E-B9FF-A35CF4A48C0F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NStreamComTesterC++", "test\C++\NStreamComTesterC++\NStreamComTesterC++.vcxproj", "{18682C23-A345-4B09-938E-391999D854E4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StandardCollections", "dependencies\C++\StandardCollections\StandardCollections.vcxitems", "{6A1B6FF9-C65C-49A9-BEFF-935FC2A4470F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Debug|x86.Build.0 = Debug|Any CPU
 		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|x64.Build.0 = Release|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06}.Release|x86.Build.0 = Release|Any CPU
 		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|x64.Build.0 = Debug|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Debug|x86.Build.0 = Debug|Any CPU
 		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|x64.ActiveCfg = Release|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|x64.Build.0 = Release|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F603371-CB3A-4574-8B2B-676DB89190DD}.Release|x86.Build.0 = Release|Any CPU
+		{18682C23-A345-4B09-938E-391999D854E4}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Debug|Any CPU.Build.0 = Debug|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Debug|x64.ActiveCfg = Debug|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Debug|x64.Build.0 = Debug|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Debug|x86.ActiveCfg = Debug|Win32
+		{18682C23-A345-4B09-938E-391999D854E4}.Debug|x86.Build.0 = Debug|Win32
+		{18682C23-A345-4B09-938E-391999D854E4}.Release|Any CPU.ActiveCfg = Release|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Release|Any CPU.Build.0 = Release|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Release|x64.ActiveCfg = Release|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Release|x64.Build.0 = Release|x64
+		{18682C23-A345-4B09-938E-391999D854E4}.Release|x86.ActiveCfg = Release|Win32
+		{18682C23-A345-4B09-938E-391999D854E4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,8 +82,19 @@ Global
 		{D2A91EBA-80A4-4EF0-9A94-74ED70107B06} = {CA62A05B-8401-4785-9AC5-3EE802EAC216}
 		{DA4B027C-4606-4705-8DF0-2B9117B61C5C} = {6A649738-E747-4214-A8D7-200D8EE246E8}
 		{7F603371-CB3A-4574-8B2B-676DB89190DD} = {DA4B027C-4606-4705-8DF0-2B9117B61C5C}
+		{D168B786-8986-4B62-854B-6F6750996A8D} = {A6096EF5-DB36-4E30-AA8C-F3D0D0CABD07}
+		{A6096EF5-DB36-4E30-AA8C-F3D0D0CABD07} = {F1A360FA-2A6E-4EE8-8377-10C44A94C6B6}
+		{C3100846-659A-4F3E-B9FF-A35CF4A48C0F} = {6A649738-E747-4214-A8D7-200D8EE246E8}
+		{18682C23-A345-4B09-938E-391999D854E4} = {C3100846-659A-4F3E-B9FF-A35CF4A48C0F}
+		{6A1B6FF9-C65C-49A9-BEFF-935FC2A4470F} = {3D6BF4F3-87AD-49D0-AAD2-9DF735AF7443}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {441CA3DE-0F9E-470A-A343-C8E5F5B25332}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		dependencies\C++\StandardCollections\StandardCollections.vcxitems*{18682c23-a345-4b09-938e-391999d854e4}*SharedItemsImports = 4
+		src\C++\NStreamCom\NStreamCom.vcxitems*{18682c23-a345-4b09-938e-391999d854e4}*SharedItemsImports = 4
+		dependencies\C++\StandardCollections\StandardCollections.vcxitems*{6a1b6ff9-c65c-49a9-beff-935fc2a4470f}*SharedItemsImports = 9
+		src\C++\NStreamCom\NStreamCom.vcxitems*{d168b786-8986-4b62-854b-6f6750996a8d}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal

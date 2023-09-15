@@ -3,21 +3,43 @@
 
 #include "NStreamComCommon.h"
 #include "Packet.h"
+#include "PacketArray.h"
+
+bool verifyPackets(const Collection<Packet>& packets);
+
+class PacketArray;
 
 class Message
 {
 public:
-	Message(messageid_t id, const Collection<uint8_t>& data);
+	Message(Message& other);
 
-	DynamicArray<Packet> getPackets(uint16_t packetSize);
+	Message(Message&& other);
 
-	void fastWrite(uint16_t packetSize, __platform_ostream__& stream);
+	Message(const messageid_t id, const Collection<uint8_t>& data);
+
+	Message(const messageid_t id, const void* const data, const size_t length);
+
+	Message(const PacketArray& packets);
+
+	messageid_t getID();
+
+	uint16_t getSize();
+
+	PacketArray getPackets(const uint16_t packetSize) const;
+
+	DynamicArray<uint8_t> getData();
+
+	void fastWrite(const uint16_t packetSize, const __platform_ostream__& stream) const;
+
+	bool isVerified();
 
 	~Message();
 
 private:
 	messageid_t id;
 	DynamicArray<uint8_t> data;
+	bool verified;
 };
 
 #endif // !Message_h

@@ -3,11 +3,11 @@
 
 #if defined(ARDUINO) && ARDUINO >= 100
 using __platform_ostream__ = Stream;
-
-#define __platform_ostream__write(stream, byte_array, byte_array_length) #error "Not implemented."
+#define __platform_ostream__write(stream, byte) stream.write(byte)
 #else
 #include <iostream>
 using __platform_ostream__ = std::ostream;
+#define __platform_ostream__write(stream, byte) (stream.out << byte)
 #endif // DEBUG
 
 #endif // !PlatformSwitcher_h

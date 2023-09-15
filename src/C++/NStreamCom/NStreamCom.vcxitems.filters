@@ -41,5 +41,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PacketCollector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

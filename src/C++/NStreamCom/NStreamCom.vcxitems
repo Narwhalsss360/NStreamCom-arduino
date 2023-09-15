@@ -26,5 +26,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Message.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Packet.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketArray.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PacketCollector.cpp" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace NStreamCom
 {
@@ -40,33 +41,32 @@ namespace NStreamCom
             if (PacketsCollected.Count == 0)
             {
                 PacketsCollected.Add(Collected);
-                    goto Check;
-            }
-
-            if (Collected.ID == PacketsCollected.Last().ID)
-            {
-                PacketsCollected.Add((Packet)Collected);
+                if (Collected.MessageSize != (ushort)Collected.Data.Length)
+                    return;
             }
             else
             {
-                if (BytesCollected != PacketsCollected.Last().MessageSize)
+                if (Collected.ID == PacketsCollected.Last().ID)
                 {
-                    Discard();
-
+                    PacketsCollected.Add((Packet)Collected);
+                    if (BytesCollected != Collected.MessageSize)
+                        return;
                 }
-                RecycleStream = true;
-                goto Ready;
+                else
+                {
+                    if (BytesCollected != PacketsCollected.Last().MessageSize)
+                    {
+                        Discard();
+                        throw new PacketsMessageSizeMismatch("Did not receive all bytes");
+                    }
+                    RecycleStream = true;
+                }
             }
 
-        Check:
-            if (Collected.MessageSize != (ushort)Collected.Data.Length)
-                return;
-            Ready:
             PacketsReady?.Invoke(this, new PacketsReadyEventArgs(PacketsCollected.ToArray()));
             Discard();
             if (RecycleStream)
                 Collect(Stream);
-
         }
 
         public void Collect(byte[] Data)

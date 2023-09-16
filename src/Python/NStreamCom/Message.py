@@ -3,26 +3,26 @@ from Packet import Packet
 
 class ObjectNotPacket(Exception):
     def __init__(self, message):
-        super.__init__(ObjectNotPacket, self, message)
+        super().__init__(message)
 
 class EmptyList(Exception):
     def __init__(self, message):
-        super.__init__(EmptyList, self, message)
+        super().__init__(message)
 
 class PacketIDMismatch(Exception):
     def __init__(self, message):
-        super.__init__(PacketIDMismatch, self, message)
+        super().__init__(message)
 
 class PacketMessageSizeMismatch(Exception):
     def __init__(self, message):
-        super.__init__(PacketMessageSizeMismatch, self, message)
+        super().__init__(message)
 
 def verify_packet_list(packets : list) -> None:
     if len(packets) == 0:
         raise EmptyList("packets list was empty")
 
     for packet in packets:
-        if packet is not Packet:
+        if not isinstance(packet, Packet):
             raise ObjectNotPacket(f"{packet} was not of type Packet")
 
     id = packets[0].id
@@ -43,26 +43,30 @@ def verify_packet_list(packets : list) -> None:
     
 
 class Message:
-    def __init__(self, id : int, data : list) -> None:
-        self.id = id
-        self.data = data
-        
-    def __init__(self, packets : list) -> None:
-        verify_packet_list(packets)
-        self.id = packets[0].id
-        self.data = []
-        
-        for packet in packets:
-            self.data += packets.data
+    def __init__(self, packets : list = None, id : int = None, data : list = None) -> None:
+        if isinstance(id, int) and isinstance(data, list):
+            self.id = id
+            self.data = data
+        elif isinstance(packets, list):
+            verify_packet_list(packets)
+            self.id = packets[0].id
+            self.data = []
+            for packet in packets:
+                self.data += packet.data
+        else:
+            self.id = None
+            self.data = None
 
     def get_packets(self, packet_size : int) -> list:
+        if self.id is None or self.data is None:
+            return None
+            
         if packet_size >= len(self.data):
-            return [ Packet(self.id, len(self.data), self.data) ]
+            return [ Packet(id = self.id, message_size = len(self.data), data = self.data) ]
         
         packet_count = math.ceil(len(self.data) / packet_size)
         
         packets = []
         for i_packet in range(packet_count):
-            packets += Packet(self.id, len(self.data) - (i_packet * packet_size) if i_packet == packet_count - 1 else packet_size, self.data[i_packet * packet_size])
-            
+            packets.append(Packet(id = self.id, message_size = len(self.data), data = self.data[i_packet * packet_size]))
         return packets

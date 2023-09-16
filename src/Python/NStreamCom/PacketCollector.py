@@ -21,7 +21,7 @@ class PacketCollector:
         collected = None
         
         try:
-            collected = Packet(data)
+            collected = Packet(data = data)
         except PacketSizeDataMismatch:
             self.discard()
             raise
@@ -29,11 +29,11 @@ class PacketCollector:
         self.bytes_collected += len(collected.data)
         
         if len(self.packets_collected) == 0:
-            self.packets_collected += collected
+            self.packets_collected.append(collected)
             return
         else:
             if collected.id == self.packets_collected[-1].id:
-                self.packets_collected += collected
+                self.packets_collected.append(collected)
                 if self.bytes_collected != collected.message_size:
                     return
             else:
@@ -42,7 +42,7 @@ class PacketCollector:
                     raise PacketMessageSizeMismatch("Did not receive all packets")
                 self.recycle_stream = True
 
-        if self.packet_ready_callback == function:
+        if callable(self.packet_ready_callback):
             self.packet_ready_callback(self.packets_collected)
         self.discard()
         if (self.recycle_stream):

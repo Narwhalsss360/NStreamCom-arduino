@@ -2,16 +2,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>adf99a98-21dd-4082-84e5-3f9cd362d973</ProjectGuid>
+    <ProjectGuid>911b58ea-e6e6-4b1e-bc71-b77e6e538908</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <StartupFile>NStreamComTester.py</StartupFile>
+    <SearchPath>..\..\..\src\Python;..\..\..\src\Python\NStreamCom</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>NStreamCom</Name>
-    <RootNamespace>NStreamCom</RootNamespace>
+    <Name>NStreamComTester</Name>
+    <RootNamespace>NStreamComTester</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,10 +20,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Message.py" />
-    <Compile Include="Packet.py" />
-    <Compile Include="PacketCollector.py" />
-    <Compile Include="__init__.py" />
+    <Compile Include="NStreamComTester.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

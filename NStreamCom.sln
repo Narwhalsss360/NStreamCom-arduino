@@ -27,6 +27,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NStreamComTesterC++", "test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StandardCollections", "dependencies\C++\StandardCollections\StandardCollections.vcxitems", "{6A1B6FF9-C65C-49A9-BEFF-935FC2A4470F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{2FD926F5-4E45-4F17-A441-E381FB41401F}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NStreamCom", "src\Python\NStreamCom\NStreamCom.pyproj", "{ADF99A98-21DD-4082-84E5-3F9CD362D973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +77,12 @@ Global
 		{18682C23-A345-4B09-938E-391999D854E4}.Release|x64.Build.0 = Release|x64
 		{18682C23-A345-4B09-938E-391999D854E4}.Release|x86.ActiveCfg = Release|Win32
 		{18682C23-A345-4B09-938E-391999D854E4}.Release|x86.Build.0 = Release|Win32
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973}.Release|x64.ActiveCfg = Release|Any CPU
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +97,8 @@ Global
 		{C3100846-659A-4F3E-B9FF-A35CF4A48C0F} = {6A649738-E747-4214-A8D7-200D8EE246E8}
 		{18682C23-A345-4B09-938E-391999D854E4} = {C3100846-659A-4F3E-B9FF-A35CF4A48C0F}
 		{6A1B6FF9-C65C-49A9-BEFF-935FC2A4470F} = {3D6BF4F3-87AD-49D0-AAD2-9DF735AF7443}
+		{2FD926F5-4E45-4F17-A441-E381FB41401F} = {F1A360FA-2A6E-4EE8-8377-10C44A94C6B6}
+		{ADF99A98-21DD-4082-84E5-3F9CD362D973} = {2FD926F5-4E45-4F17-A441-E381FB41401F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {441CA3DE-0F9E-470A-A343-C8E5F5B25332}

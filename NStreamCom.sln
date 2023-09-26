@@ -35,6 +35,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{D9D1F2
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NStreamComTester", "test\python\NStreamComTester\NStreamComTester.pyproj", "{911B58EA-E6E6-4B1E-BC71-B77E6E538908}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{B6A30458-DB82-49EB-9E14-455F12F9C8E4}"
+	ProjectSection(SolutionItems) = preProject
+		lib\BufferTemplate.csv = lib\BufferTemplate.csv
+		lib\keywords.txt = lib\keywords.txt
+		lib\library.properties = lib\library.properties
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

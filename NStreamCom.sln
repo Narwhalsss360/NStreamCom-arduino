@@ -43,6 +43,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Communicator", "tools\Commu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicatorChannel", "tools\Communicator\CommunicatorChannel\CommunicatorChannel.csproj", "{70FCE5CA-91DF-4B4D-8FCC-35BC2A5A2B63}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{B6A30458-DB82-49EB-9E14-455F12F9C8E4}"
+	ProjectSection(SolutionItems) = preProject
+		lib\BufferTemplate.csv = lib\BufferTemplate.csv
+		lib\keywords.txt = lib\keywords.txt
+		lib\library.properties = lib\library.properties
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

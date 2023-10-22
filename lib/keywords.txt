@@ -1,0 +1,29 @@
+NStreamCom		LITERAL1
+
+verifyBytes		KEYWORD2
+
+packet			KEYWORD1
+getStreamBytes	KEYWORD2
+isVerified		KEYWORD2
+getData			KEYWORD2
+getID			KEYWORD2
+getMessageSize	KEYWORD2
+getDataSize		KEYWORD2
+
+PacketsReadyEventHandler	LITERAL1
+
+PacketCollector		KEYWORD2
+packetsReadyEvent	KEYWORD2
+discard				KEYWORD2
+collect				KEYWORD2
+
+verifyPackets		KEYWORD2
+
+Message				KEYWORD1
+getSize				KEYWORD2
+getPackets			KEYWORD2
+getData				KEYWORD2
+fastWrite			KEYWORD2
+
+PacketArray			KEYWORD1
+getStreamsBytes		KEYWORD2

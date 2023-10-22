@@ -11,5 +11,10 @@ namespace NStreamCom
             Stream.Read(Bytes, 0, Bytes.Length);
             return Bytes;
         }
+
+        public static void Write(this Stream Destination, Stream Source)
+        {
+            Destination.Write(Source.ReadAll(), 0, (int)Source.Length);
+        }
     }
 }

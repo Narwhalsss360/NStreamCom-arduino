@@ -7,7 +7,7 @@ namespace NStreamCom
         public static void WriteStreamsTo(this Stream[] Source, Stream Destination)
         {
             foreach (var Stream in Source)
-                Destination.CopyTo(Stream);
+                Destination.Write(Stream);
         }
     }
 }

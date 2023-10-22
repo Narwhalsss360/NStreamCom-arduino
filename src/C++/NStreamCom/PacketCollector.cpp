@@ -45,7 +45,7 @@ bool PacketCollector::collect(const Collection<uint8_t>& bytes)
 	}
 	else
 	{
-		if (collected.getID() != packetsCollected[packetsCollected.Length() - 1].getID())
+		if (collected.getID() == packetsCollected[packetsCollected.Length() - 1].getID())
 		{
 			packetsCollected += collected;
 			if (bytesCollected != collected.getMessageSize())

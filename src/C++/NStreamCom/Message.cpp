@@ -95,7 +95,7 @@ DynamicArray<uint8_t> Message::getData()
 	return data;
 }
 
-void Message::fastWrite(const uint16_t packetSize, const __platform_ostream__& stream) const
+void Message::fastWrite(const uint16_t packetSize, __platform_ostream__& stream) const
 {
 	getPackets(packetSize).fastWrite(stream);
 }

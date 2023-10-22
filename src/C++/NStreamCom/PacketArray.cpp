@@ -26,7 +26,7 @@ DynamicArray<DynamicArray<uint8_t>> PacketArray::getStreamsBytes()
 	return streamsBytes;
 }
 
-void PacketArray::fastWrite(const __platform_ostream__& stream)
+void PacketArray::fastWrite(__platform_ostream__& stream)
 {
 	for (const Collection<uint8_t>& packetBytes : getStreamsBytes())
 		for (const uint8_t& byte : packetBytes)

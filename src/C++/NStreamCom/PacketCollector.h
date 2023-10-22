@@ -5,7 +5,7 @@
 #include "Packet.h"
 #include "PacketArray.h"
 
-using PacketsReadyEventHandler = void (*)(const Collection<Packet>&);
+using PacketsReadyEventHandler = void (*)(const PacketArray&);
 
 class PacketCollector
 {

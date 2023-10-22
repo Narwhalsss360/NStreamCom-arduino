@@ -19,7 +19,7 @@ public:
 
 	DynamicArray<DynamicArray<uint8_t>> getStreamsBytes();
 
-	void fastWrite(const __platform_ostream__& stream);
+	void fastWrite(__platform_ostream__& stream);
 
 	~PacketArray();
 

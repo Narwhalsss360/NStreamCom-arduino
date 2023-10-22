@@ -30,7 +30,7 @@ public:
 
 	DynamicArray<uint8_t> getData();
 
-	void fastWrite(const uint16_t packetSize, const __platform_ostream__& stream) const;
+	void fastWrite(const uint16_t packetSize, __platform_ostream__& stream) const;
 
 	bool isVerified();
 

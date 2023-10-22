@@ -18,14 +18,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NStreamCom.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NStreamComCommon.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Packet.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)PacketArray.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketCollector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlatformSwitcher.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Message.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Packet.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)PacketArray.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketCollector.cpp" />
   </ItemGroup>
 </Project>

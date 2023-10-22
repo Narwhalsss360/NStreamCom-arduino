@@ -3,20 +3,6 @@
 
 #define SET_BYTE_INTEGRAL(number, index, value) ((uint8_t*)&number)[index] = value;
 
-void showPacketsBytes(PacketArray packets)
-{
-	for (size_t i = 0; i < packets.Length(); i++)
-	{
-		std::cout << "Packet " << i << ":\n";
-		auto d = packets[i].getData();
-
-		for (size_t i2 = 0; i2 < d.Length(); i2++)
-		{
-			std::cout << "    [" << i2 << "]:" << (int)d[i2] << '\n';
-		}
-	}
-}
-
 void serializeDeserializeTest()
 {
 	constexpr uint16_t packetSize = 2;
@@ -26,23 +12,29 @@ void serializeDeserializeTest()
 		SET_BYTE_INTEGRAL(n, i, i);
 
 	Message TXMessage = Message(1, &n, sizeof(n));
-	PacketArray TXPackets = TXMessage.getPackets(packetSize);
-	showPacketsBytes(TXPackets);
-	DynamicArray<DynamicArray<uint8_t>> packetsStreamsBytes = TXPackets.getStreamsBytes();
+	Packet* packets;
+	uint16_t packetCount = TXMessage.getPackets(packets, packetSize);
 
-	PacketArray RXPackets = PacketArray();
-	for (const Collection<uint8_t>& streamBytes : packetsStreamsBytes)
-		RXPackets += Packet(streamBytes);
+	Message RXMessage = Message(packets, packetCount);
+	if (!RXMessage.isVerified())
 	{
-		Message RXMessage = Message(RXPackets);
-		DynamicArray<uint8_t> RXData = RXMessage.getData();
-		void* rxptr = &RXData[0];
-
-		if (n != *(uint64_t*)rxptr)
-		{
-			__debugbreak();
-		}
+		__debugbreak();
 	}
+	void* recv = RXMessage.getData();
+
+	if (RXMessage.getSize() != sizeof(n))
+	{
+		__debugbreak();
+	}
+
+	uint64_t nRecv = *(uint64_t*)recv;
+
+	if (n != *(uint64_t*)RXMessage.getData())
+	{
+		__debugbreak();
+	}
+
+	delete[] packets;
 }
 
 constexpr uint64_t longNumberValue = 0xDEADBEEFC0FFEEAA;
@@ -53,24 +45,29 @@ void collectorTest()
 	uint64_t longNumber = longNumberValue;
 
 	PacketCollector collector;
-	collector.packetsReadyEvent
+	collector.messageReady
 	(
-		[](const PacketArray& packets)
+		[](const uint16_t id, void* data, uint16_t size)
 		{
-			Message recv = Message(packets);
-			auto data = recv.getData();
-			if (*(uint64_t*)(&data[0]) != longNumberValue)
-			{
+			if (size != sizeof(longNumber))
 				__debugbreak();
-			}
+			if (longNumberValue != *(uint64_t*)data)
+				__debugbreak();
 		}
 	);
 
-	Message TXMessage = Message(1, &longNumber, sizeof(uint64_t));
-	PacketArray TXPackets = TXMessage.getPackets(packetSize);
-	auto packetsStreamsBytes = TXPackets.getStreamsBytes();
-	for (DynamicArray<uint8_t> streamBytes : packetsStreamsBytes)
-		collector.collect(streamBytes);
+	Message TXMessage = Message(1, &longNumber, sizeof(longNumber));
+	Packet* packets;
+	uint16_t packetCount = TXMessage.getPackets(packets, 2);
+	for (int i = 0; i < packetCount; i++)
+	{
+		uint8_t* streamBytes;
+		uint32_t streamBytesSize = packets[i].getStreamBytes(streamBytes);
+		collector.collect(streamBytes, streamBytesSize);
+		delete[] streamBytes;
+	}
+
+	delete[] packets;
 }
 
 int main()

@@ -5,30 +5,32 @@
 
 class Packet;
 
-bool verifyBytes(const Collection<uint8_t>& bytes);
+bool verifyBytes(const uint8_t* const bytes, const size_t length);
 
 class Packet
 {
 public:
 	Packet();
 
-	Packet(messageid_t id, uint16_t messageSize, const Collection<uint8_t>& data);
+	Packet(messageid_t id, uint16_t messageSize, const void * const data, const uint16_t length);
 
-	Packet(messageid_t id, uint16_t messageSize, const void * const data, const size_t length);
+	Packet(const uint8_t* const stream, const uint32_t length);
 
-	Packet(const Collection<uint8_t>& streamBytes);
-
-	DynamicArray<uint8_t> getStreamBytes() const;
+	Packet(const Packet& other);
 
 	bool isVerified() const;
 
-	DynamicArray<uint8_t> getData() const;
+	void* getData() const;
 
 	messageid_t getID() const;
 
 	uint16_t getMessageSize() const;
 
 	uint16_t getDataSize() const;
+
+	uint32_t getStreamBytes(uint8_t*& bytes) const;
+
+	Packet& operator=(const Packet& other);
 
 	bool operator==(const Packet& other) const;
 
@@ -37,7 +39,8 @@ public:
 private:
 	messageid_t id;
 	uint16_t messageSize;
-	DynamicArray<uint8_t> data;
+	uint8_t* data;
+	uint16_t dataLength;
 	bool verified;
 };
 

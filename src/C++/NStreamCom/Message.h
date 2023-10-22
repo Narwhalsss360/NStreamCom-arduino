@@ -3,11 +3,9 @@
 
 #include "NStreamComCommon.h"
 #include "Packet.h"
-#include "PacketArray.h"
 
-bool verifyPackets(const Collection<Packet>& packets);
-
-class PacketArray;
+bool verifyPackets(const Packet* const packets, uint16_t length);
+void fastWrite(const Packet* const packets, uint16_t length);
 
 class Message
 {
@@ -16,29 +14,28 @@ public:
 
 	Message(Message&& other);
 
-	Message(const messageid_t id, const Collection<uint8_t>& data);
+	Message(const messageid_t id, const void* const data, const uint16_t length);
 
-	Message(const messageid_t id, const void* const data, const size_t length);
+	Message(const Packet* const packets, const uint16_t length);
 
-	Message(const PacketArray& packets);
+	messageid_t getID() const;
 
-	messageid_t getID();
+	uint16_t getSize() const;
 
-	uint16_t getSize();
+	uint16_t getPackets(Packet*& packets, uint16_t packetSize) const;
 
-	PacketArray getPackets(const uint16_t packetSize) const;
-
-	DynamicArray<uint8_t> getData();
+	void* getData() const;
 
 	void fastWrite(const uint16_t packetSize, __platform_ostream__& stream) const;
 
-	bool isVerified();
+	bool isVerified() const;
 
 	~Message();
 
 private:
 	messageid_t id;
-	DynamicArray<uint8_t> data;
+	uint8_t* data;
+	uint16_t dataLength;
 	bool verified;
 };
 

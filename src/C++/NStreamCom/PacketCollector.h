@@ -3,31 +3,30 @@
 
 #include "NStreamComCommon.h"
 #include "Packet.h"
-#include "PacketArray.h"
 
-using PacketsReadyEventHandler = void (*)(const PacketArray&);
+using MessageReadyHandler = void (*)(const uint16_t id, void* data, uint16_t size);
 
 class PacketCollector
 {
 public:
 	PacketCollector();
 
-	void packetsReadyEvent(PacketsReadyEventHandler handler);
+	void messageReady(MessageReadyHandler handler);
 
 	void discard();
 
 	bool collect(const uint8_t* const bytes, size_t length);
-
-	bool collect(const Collection<uint8_t>& bytes);
 
 	~PacketCollector();
 
 private:
 
 	bool recycle;
-	PacketArray packetsCollected;
+	uint8_t* receivedData;
 	uint16_t bytesCollected;
-	PacketsReadyEventHandler packetsReady;
+	uint16_t id;
+	uint16_t messageSize;
+	MessageReadyHandler messageReadyHandler;
 };
 
 #endif // !PacketCollector_h

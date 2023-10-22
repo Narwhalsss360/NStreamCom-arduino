@@ -25,8 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "C++", "C++", "{C3100846-659
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NStreamComTesterC++", "test\C++\NStreamComTesterC++\NStreamComTesterC++.vcxproj", "{18682C23-A345-4B09-938E-391999D854E4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StandardCollections", "dependencies\C++\StandardCollections\StandardCollections.vcxitems", "{6A1B6FF9-C65C-49A9-BEFF-935FC2A4470F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{2FD926F5-4E45-4F17-A441-E381FB41401F}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NStreamCom", "src\Python\NStreamCom\NStreamCom.pyproj", "{ADF99A98-21DD-4082-84E5-3F9CD362D973}"
@@ -41,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communicator", "Communicato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Communicator", "tools\Communicator\Communicator\Communicator.csproj", "{C61E4A7C-27C1-43E9-AB08-6E6723F7B224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicatorChannel", "tools\Communicator\CommunicatorChannel\CommunicatorChannel.csproj", "{70FCE5CA-91DF-4B4D-8FCC-35BC2A5A2B63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicatorChannel", "tools\Communicator\CommunicatorChannel\CommunicatorChannel.csproj", "{70FCE5CA-91DF-4B4D-8FCC-35BC2A5A2B63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{B6A30458-DB82-49EB-9E14-455F12F9C8E4}"
 	ProjectSection(SolutionItems) = preProject
@@ -145,7 +143,6 @@ Global
 		{A6096EF5-DB36-4E30-AA8C-F3D0D0CABD07} = {F1A360FA-2A6E-4EE8-8377-10C44A94C6B6}
 		{C3100846-659A-4F3E-B9FF-A35CF4A48C0F} = {6A649738-E747-4214-A8D7-200D8EE246E8}
 		{18682C23-A345-4B09-938E-391999D854E4} = {C3100846-659A-4F3E-B9FF-A35CF4A48C0F}
-		{6A1B6FF9-C65C-49A9-BEFF-935FC2A4470F} = {3D6BF4F3-87AD-49D0-AAD2-9DF735AF7443}
 		{2FD926F5-4E45-4F17-A441-E381FB41401F} = {F1A360FA-2A6E-4EE8-8377-10C44A94C6B6}
 		{ADF99A98-21DD-4082-84E5-3F9CD362D973} = {2FD926F5-4E45-4F17-A441-E381FB41401F}
 		{D9D1F232-E9F7-4BD3-AD79-B26CBE6B21B6} = {6A649738-E747-4214-A8D7-200D8EE246E8}
@@ -158,9 +155,7 @@ Global
 		SolutionGuid = {441CA3DE-0F9E-470A-A343-C8E5F5B25332}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		dependencies\C++\StandardCollections\StandardCollections.vcxitems*{18682c23-a345-4b09-938e-391999d854e4}*SharedItemsImports = 4
 		src\C++\NStreamCom\NStreamCom.vcxitems*{18682c23-a345-4b09-938e-391999d854e4}*SharedItemsImports = 4
-		dependencies\C++\StandardCollections\StandardCollections.vcxitems*{6a1b6ff9-c65c-49a9-beff-935fc2a4470f}*SharedItemsImports = 9
 		src\C++\NStreamCom\NStreamCom.vcxitems*{d168b786-8986-4b62-854b-6f6750996a8d}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal

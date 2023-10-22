@@ -1,59 +1,47 @@
 #include "PacketCollector.h"
 
 PacketCollector::PacketCollector()
-	: recycle(false), packetsCollected(PacketArray()), bytesCollected(0), packetsReady(nullptr)
+	: recycle(false), receivedData(nullptr), bytesCollected(0), id(0), messageSize(0), messageReadyHandler(nullptr)
 {
 }
 
-void PacketCollector::packetsReadyEvent(PacketsReadyEventHandler handler)
+void PacketCollector::messageReady(MessageReadyHandler handler)
 {
-	packetsReady = handler;
+	messageReadyHandler = handler;
 }
 
 void PacketCollector::discard()
 {
 	recycle = false;
-	packetsCollected.SetCapacity(0);
+	if (receivedData)
+		delete[] receivedData;
+	receivedData = nullptr;
 	bytesCollected = 0;
+	messageSize = 0;
 }
 
 bool PacketCollector::collect(const uint8_t* const bytes, size_t length)
 {
-	DynamicArray<uint8_t> collectionBytes;
-	for (size_t i = 0; i < length; i++)
-		collectionBytes += bytes[i];
-	return collect(collectionBytes);
-}
-
-bool PacketCollector::collect(const Collection<uint8_t>& bytes)
-{
 	recycle = false;
-	Packet collected(bytes);
-	if (!collected.isVerified())
+	if (!verifyBytes(bytes, length))
 	{
 		discard();
 		return false;
 	}
 
-	bytesCollected += collected.getDataSize();
-
-	if (packetsCollected.Length() == 0)
+	if (receivedData)
 	{
-		packetsCollected += collected;
-		if (collected.getDataSize() != collected.getMessageSize())
-			return true;
-	}
-	else
-	{
-		if (collected.getID() == packetsCollected[packetsCollected.Length() - 1].getID())
+		if (*(uint16_t*)bytes == id)
 		{
-			packetsCollected += collected;
-			if (bytesCollected != collected.getMessageSize())
+			for (int iSource = NSTREAMCOM_PROTOCOLSIZE, iDestination = bytesCollected; iSource < length && iDestination < messageSize; iSource++, iDestination++)
+				receivedData[iDestination] = bytes[iSource];
+			bytesCollected += *(uint16_t*)(bytes + 4);
+			if (bytesCollected != messageSize)
 				return true;
 		}
 		else
 		{
-			if (bytesCollected != collected.getMessageSize())
+			if (bytesCollected != messageSize)
 			{
 				discard();
 				return false;
@@ -61,12 +49,25 @@ bool PacketCollector::collect(const Collection<uint8_t>& bytes)
 			recycle = true;
 		}
 	}
+	else
+	{
+		id = *(uint16_t*)bytes;
+		messageSize = *(uint16_t*)(bytes + 2);
+		receivedData = new uint8_t[messageSize];
+		bytesCollected += *(uint16_t*)(bytes + 4);
 
-	if (packetsReady)
-		packetsReady(packetsCollected);
+		for (int iSource = NSTREAMCOM_PROTOCOLSIZE, iDestination = 0; iSource < length && iDestination < messageSize; iSource++, iDestination++)
+			receivedData[iDestination] = bytes[iSource];
+
+		if (bytesCollected != messageSize)
+			return true;
+	}
+
+	if (messageReadyHandler)
+		messageReadyHandler(id, receivedData, messageSize);
 	discard();
 	if (recycle)
-		return collect(bytes);
+		collect(bytes, length);
 	return true;
 }
 

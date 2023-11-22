@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>adf99a98-21dd-4082-84e5-3f9cd362d973</ProjectGuid>
+    <ProjectGuid>5e31ae50-3e1b-41bd-8f0f-9a7b372ec04d</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>
     </StartupFile>
@@ -22,10 +22,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Message.py" />
-    <Compile Include="Packet.py" />
-    <Compile Include="PacketCollector.py" />
-    <Compile Include="__init__.py" />
+    <Folder Include="nstreamcom\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="nstreamcom\collector.py" />
+    <Compile Include="nstreamcom\constants.py" />
+    <Compile Include="nstreamcom\flatten.py" />
+    <Compile Include="nstreamcom\message.py" />
+    <Compile Include="nstreamcom\packet.py" />
+    <Compile Include="nstreamcom\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

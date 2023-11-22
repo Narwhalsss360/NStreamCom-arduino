@@ -5,7 +5,7 @@ namespace NStreamCom
 {
     public static class MemoryStreamArrayExtensions
     {
-        public static void WriteStreamsTo(this Stream[] Source, Stream Destination, int WaitTime = 3)
+        public static void WriteStreamsTo(this Stream[] Source, Stream Destination, int WaitTime = 0)
         {
             foreach (var Stream in Source)
             {

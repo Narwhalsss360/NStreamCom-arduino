@@ -15,6 +15,8 @@ void serializeDeserializeTest()
 	Packet* packets;
 	uint16_t packetCount = TXMessage.getPackets(packets, packetSize);
 
+	TXMessage.fastWrite(8, std::cout);
+
 	Message RXMessage = Message(packets, packetCount);
 	if (!RXMessage.isVerified())
 	{

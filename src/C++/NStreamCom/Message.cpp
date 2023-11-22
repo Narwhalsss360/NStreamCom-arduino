@@ -28,9 +28,16 @@ bool verifyPackets(const Packet* const packets, uint16_t length)
 	return messageSizeSum == packets[0].getMessageSize();
 }
 
-void fastWrite(const Packet* const packets, uint16_t length)
+void fastWrite(__platform_ostream__& stream, const Packet* const packets, uint16_t length, uint32_t waitTimems = 0)
 {
-
+	for (uint16_t iPacket = 0; iPacket < length; iPacket++)
+	{
+		uint8_t* bytes;
+		uint32_t byteCount = packets[iPacket].getStreamBytes(bytes);
+		__platform_ostream_write_bytes(stream, bytes, byteCount);
+		delete[] bytes;
+		__platform_sleeper(waitTimems);
+	}
 }
 
 Message::Message(Message& other)
@@ -109,9 +116,19 @@ void* Message::getData() const
 	return data;
 }
 
-void Message::fastWrite(const uint16_t packetSize, __platform_ostream__& stream) const
+void Message::fastWrite(const uint16_t packetSize, __platform_ostream__& stream, uint32_t waitTimems) const
 {
+	Packet* packets;
+	uint16_t packetCount = getPackets(packets, packetSize);
+	if (packets == nullptr)
+		return;
 
+	::fastWrite(stream, packets, packetCount, waitTimems);
+
+	if (packetCount > 1)
+		delete[] packets;
+	else
+		delete packets;
 }
 
 bool Message::isVerified() const

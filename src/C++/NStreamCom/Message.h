@@ -5,7 +5,7 @@
 #include "Packet.h"
 
 bool verifyPackets(const Packet* const packets, uint16_t length);
-void fastWrite(const Packet* const packets, uint16_t length);
+void fastWrite(__platform_ostream__& stream, const Packet* const packets, uint16_t length, uint32_t waitTimems);
 
 class Message
 {
@@ -26,7 +26,7 @@ public:
 
 	void* getData() const;
 
-	void fastWrite(const uint16_t packetSize, __platform_ostream__& stream) const;
+	void fastWrite(const uint16_t packetSize, __platform_ostream__& stream, uint32_t waitTimems = 0) const;
 
 	bool isVerified() const;
 

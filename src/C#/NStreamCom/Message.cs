@@ -46,9 +46,9 @@ namespace NStreamCom
             return Packets;
         }
 
-        public void WriteTo(ushort PacketSize, Stream Stream)
+        public void WriteTo(ushort PacketSize, Stream Stream, int WaitTime = 3)
         {
-            GetPackets(PacketSize).GetStreams().WriteStreamsTo(Stream);
+            GetPackets(PacketSize).GetStreams().WriteStreamsTo(Stream, WaitTime);
         }
     }
 }

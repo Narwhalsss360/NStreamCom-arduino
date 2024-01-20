@@ -1,54 +1,56 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace NStreamCom
 {
     public class Message
     {
-        public ushort ID { get; private set; }
-        public MemoryStream Data;
+        public ushort ID;
 
-        public Message(ushort ID, MemoryStream Data)
+        public byte[] Data;
+
+        public Message(ushort id, byte[] data)
         {
-            this.ID = ID;
-            this.Data = Data;
+            ID = id;
+            Data = data;
         }
 
-        public Message(ushort ID, byte[] Data)
+        public Message(ushort id, Stream data)
+            : this(id, data.ReadAllBytes())
         {
-            this.ID = ID;
-            this.Data = new MemoryStream(Data);
         }
 
-        public Message(Packet[] Packets)
+        public Message(Packet[] packets)
         {
-            Packets.VerifyPacketsForMessage();
-            ID = Packets[0].ID;
-            Data = new MemoryStream();
-            foreach (Packet Packet in Packets)
-                Data.Write(Packet.Data.ToArray(), 0, (int)Packet.Data.Length);
-        }
+            Protocol.VerifyPackets(packets);
+            ID = packets[0].ID;
+            Data = new byte[packets[0].MessageSize];
 
-        public Packet[] GetPackets(ushort PacketSize)
-        {
-            if (PacketSize >= Data.Length)
-                return new Packet[] { new Packet(ID, (ushort)Data.Length, (ushort)Data.Length, Data) };
-
-            byte PacketCount = (byte)Math.Ceiling((double)Data.Length / PacketSize);
-            Packet[] Packets = new Packet[PacketCount];
-
-            for (int iPacket = 0; iPacket < PacketCount; iPacket++)
+            int sum = 0;
+            foreach (Packet packet in packets)
             {
-                PacketSize = (ushort)(iPacket == PacketCount - 1 ? Data.Length - (iPacket * PacketSize): PacketSize);
-                Packets[iPacket] = new Packet(ID, (ushort)Data.Length, PacketSize, new MemoryStream(Data.ToArray(), (iPacket == PacketCount - 1) ? (ushort)Data.Length - PacketSize : iPacket * PacketSize, PacketSize));
+                Array.Copy(packet.Data, 0, Data, sum, packet.Data.Length);
+                sum += packet.Data.Length;
+            }
+        }
+
+        public Packet[] GetPackets(ushort packetSize)
+        {
+            if (packetSize >= Data.Length)
+                return new Packet[] { new Packet(ID, (ushort)Data.Length, Data) };
+
+            int packetCount = (int)Math.Ceiling((double)Data.Length / packetSize);
+            Packet[] packets = new Packet[packetCount];
+
+            for (int i = 0; i < packetCount; i++)
+            {
+                if (i == packetCount - 1)
+                    packetSize = (ushort)(Data.Length - (i * packetSize));
+                packets[i] = new Packet(ID, (ushort)Data.Length, Data.Skip(i == packetCount - 1 ? Data.Length - packetSize : packetSize).Take(packetSize).ToArray());
             }
 
-            return Packets;
-        }
-
-        public void WriteTo(ushort PacketSize, Stream Stream, int WaitTime = 3)
-        {
-            GetPackets(PacketSize).GetStreams().WriteStreamsTo(Stream, WaitTime);
+            return packets;
         }
     }
 }

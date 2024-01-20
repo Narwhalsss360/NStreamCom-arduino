@@ -1,20 +1,26 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading;
 
 namespace NStreamCom
 {
     public static class StreamExtensions
     {
-        public static byte[] ReadAll(this Stream Stream)
+        public static byte[] ReadAllBytes(this Stream stream)
         {
-            byte[] Bytes = new byte[Stream.Length];
-            Stream.Seek(0, SeekOrigin.Begin);
-            Stream.Read(Bytes, 0, Bytes.Length);
-            return Bytes;
+            using (BinaryReader reader = new BinaryReader(stream))
+                return reader.ReadBytes((int)stream.Length);
         }
 
-        public static void Write(this Stream Destination, Stream Source)
+        public static void WriteAllPacketsTo(this byte[][] bytes, Stream stream, TimeSpan? interval = null)
         {
-            Destination.Write(Source.ReadAll(), 0, (int)Source.Length);
+            foreach (var packetBytes in bytes)
+            {
+                stream.Write(packetBytes, 0, packetBytes.Length);
+                if (interval is null)
+                    continue;
+                Thread.Sleep(interval.Value);
+            }
         }
     }
 }

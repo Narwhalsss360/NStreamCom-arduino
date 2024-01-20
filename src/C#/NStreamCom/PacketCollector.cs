@@ -1,77 +1,75 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 
 namespace NStreamCom
 {
     public class PacketCollector
     {
-        private List<Packet> PacketsCollected = new List<Packet>();
-        private ushort BytesCollected = 0;
-        private bool RecycleStream = false;
-        public event PacketsReadyEventHandler PacketsReady;
+        private List<Packet> _packetsCollected = new List<Packet>();
 
-        public PacketCollector()
-        {
-        }
+        private ushort _bytesCollected = 0;
+
+        private bool _recycle = false;
+
+        public event PacketsReadyEventHandler PacketsReady;
 
         public void Discard()
         {
-            BytesCollected = 0;
-            PacketsCollected.Clear();
+            _bytesCollected = 0;
+            _packetsCollected.Clear();
         }
 
-        public void Collect(Stream Stream)
+        public void Collect(byte[] data)
         {
-            RecycleStream = false;
-            Packet Collected;
+            _recycle = false;
+            Packet collected;
             try
             {
-                Collected = new Packet(Stream);
+                collected = new Packet(data);
             }
-            catch (PacketSizeDataBufferMismatch)
+            catch (SizeMismatch)
             {
                 Discard();
                 throw;
             }
 
-            BytesCollected += (ushort)Collected.Data.Length;
+            _bytesCollected += (ushort)collected.Data.Length;
 
-            if (PacketsCollected.Count == 0)
+            if (_packetsCollected.Count == 0)
             {
-                PacketsCollected.Add(Collected);
-                if (Collected.MessageSize != (ushort)Collected.Data.Length)
+                _packetsCollected.Add(collected);
+                if (collected.MessageSize != collected.Data.Length)
                     return;
             }
             else
             {
-                if (Collected.ID == PacketsCollected.Last().ID)
+                if (collected.ID == _packetsCollected.Last().ID)
                 {
-                    PacketsCollected.Add((Packet)Collected);
-                    if (BytesCollected != Collected.MessageSize)
+                    _packetsCollected.Add(collected);
+                    if (_bytesCollected != collected.MessageSize)
                         return;
                 }
                 else
                 {
-                    if (BytesCollected != PacketsCollected.Last().MessageSize)
+                    if (_bytesCollected != _packetsCollected.Last().MessageSize)
                     {
                         Discard();
-                        throw new PacketsMessageSizeMismatch("Did not receive all bytes");
+                        throw new PacketsLost();
                     }
-                    RecycleStream = true;
+                    _recycle = true;
                 }
             }
 
-            PacketsReady?.Invoke(this, new PacketsReadyEventArgs(PacketsCollected.ToArray()));
+            PacketsReady?.Invoke(this, new PacketsReadyEventArgs(_packetsCollected.ToArray()));
             Discard();
-            if (RecycleStream)
-                Collect(Stream);
+            if (_recycle)
+                Collect(data);
         }
 
-        public void Collect(byte[] Data)
+        public void Collecte(Stream data)
         {
-            Collect(new MemoryStream(Data));
+            Collect(data.ReadAllBytes());
         }
     }
 }

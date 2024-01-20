@@ -1,17 +1,14 @@
-﻿using System;
-
-namespace NStreamCom
+﻿namespace NStreamCom
 {
-    public delegate void PacketsReadyEventHandler(object Sender, PacketsReadyEventArgs Args);
-
-    public class PacketsReadyEventArgs : EventArgs
+    public class PacketsReadyEventArgs
     {
         public readonly Packet[] Packets;
 
-        public PacketsReadyEventArgs(Packet[] Packets)
-            : base()
+        public PacketsReadyEventArgs(Packet[] packets)
         {
-            this.Packets = Packets;
+            Packets = packets;
         }
     }
+
+    public delegate void PacketsReadyEventHandler(object sender, PacketsReadyEventArgs e);
 }

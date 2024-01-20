@@ -1,61 +1,57 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace NStreamCom
 {
     public class Packet
     {
-        public ushort ID { get; private set; }
+        public ushort ID;
 
-        public ushort MessageSize { get; private set; }
+        public ushort MessageSize;
 
-        public MemoryStream Data { get; private set; }
+        public byte[] Data;
 
         public int StreamBytesSize
         {
-            get
-            {
-                return (int)Data.Length + Protocol.StreamProtocolSize;
-            }
+            get => Data.Length + Protocol.MetadataSize;
         }
 
-        public Packet(ushort ID, ushort MessageSize, ushort PacketSize, byte[] Data)
-            : this(ID, MessageSize, PacketSize, new MemoryStream(Data))
+        public Packet(ushort id, ushort messageSize, byte[] data)
+        {
+            ID = id;
+            MessageSize = messageSize;
+            Data = data;
+        }
+
+        public Packet(ushort id, ushort messageSize, Stream data)
+        {
+            ID = id;
+            MessageSize = messageSize;
+            Data = data.ReadAllBytes();
+        }
+
+        public Packet(byte[] data)
+        {
+            Protocol.VerifyBytes(data);
+            ID = BitConverter.ToUInt16(data, 0);
+            MessageSize = BitConverter.ToUInt16(data, 2);
+            Data = new byte[BitConverter.ToUInt16(data, 4)];
+            Array.Copy(data, 6, Data, 0, Data.Length);
+        }
+
+        public Packet(Stream stream)
+            : this(stream.ReadAllBytes())
         {
         }
 
-        public Packet(ushort ID, ushort MessageSize, ushort PacketSize, Stream Stream)
+        public byte[] GetStreamBytes()
         {
-            this.ID = ID;
-            this.MessageSize = MessageSize;
-            Data = new MemoryStream();
-            Stream.CopyTo(Data);
-        }
-
-        public Packet(Stream Stream)
-        {
-            Protocol.VerifyStream(Stream);
-            byte[] StreamBytes = Stream.ReadAll();
-            ID = BitConverter.ToUInt16(StreamBytes, 0);
-            MessageSize = BitConverter.ToUInt16(StreamBytes, 2);
-            ushort PacketSize = BitConverter.ToUInt16(StreamBytes, 4);
-            Data = new MemoryStream(StreamBytes, Protocol.StreamProtocolSize, PacketSize);
-        }
-
-        public Packet(byte[] Buffer)
-            : this(new MemoryStream(Buffer))
-        {
-        }
-
-        public Stream GetStreamBytes()
-        {
-            MemoryStream StreamBytes = new MemoryStream();
-            StreamBytes.Write(BitConverter.GetBytes(ID), 0, 2);
-            StreamBytes.Write(BitConverter.GetBytes(MessageSize), 0, 2);
-            StreamBytes.Write(BitConverter.GetBytes((ushort)Data.Length), 0, 2);
-            StreamBytes.Write(Data.ToArray(), 0, (int)Data.Length);
-            return StreamBytes;
+            byte[] streamBytes = new byte[StreamBytesSize];
+            Array.Copy(BitConverter.GetBytes(ID), 0, streamBytes, 0, 2);
+            Array.Copy(BitConverter.GetBytes(MessageSize), 0, streamBytes, 2, 2);
+            Array.Copy(BitConverter.GetBytes((ushort)Data.Length), 0, streamBytes, 4, 2);
+            Array.Copy(Data, 0, streamBytes, 6, Data.Length);
+            return streamBytes;
         }
     }
 }

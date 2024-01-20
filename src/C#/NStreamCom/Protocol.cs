@@ -1,20 +1,48 @@
 ﻿using System;
-using System.IO;
 
 namespace NStreamCom
 {
     public static class Protocol
     {
-        public static readonly byte StreamProtocolSize = 6;
+        public static readonly int MetadataSize = 6;
 
-        public static void VerifyStream(Stream Stream)
+        public static void VerifyBytes(byte[] bytes)
         {
-            byte[] StreamBytes = Stream.ReadAll();
-            if (StreamBytes.Length < StreamProtocolSize)
-                throw new PacketSizeDataBufferMismatch("Length of Stream was less than minimum");
+            if (bytes.Length < MetadataSize)
+                throw new SizeMismatch();
 
-            if (StreamBytes.Length - StreamProtocolSize != BitConverter.ToUInt16(StreamBytes, 4))
-                throw new PacketSizeDataBufferMismatch("Length of Stream did not match its size with protocol");
+            if (bytes.Length - MetadataSize != BitConverter.ToUInt16(bytes, 4))
+                throw new SizeMismatch();
+        }
+
+        public static void VerifyPackets(this Packet[] packets)
+        {
+            if (packets.Length == 0)
+                throw new ArgumentException($"{nameof(packets)} was empty.");
+
+            ushort id = packets[0].ID;
+            ushort messageSize = packets[0].MessageSize;
+            ushort sizeSum = 0;
+
+            foreach (Packet packet in packets)
+            {
+                if (packet.ID != id)
+                    throw new IDMismatch();
+                if (packet.MessageSize != messageSize)
+                    throw new SizeMismatch();
+                sizeSum += (ushort)packet.Data.Length;
+            }
+
+            if (sizeSum != messageSize)
+                throw new SizeMismatch();
+        }
+
+        public static byte[][] GetPacketsBytes(this Packet[] packets)
+        {
+            byte[][] packetsBytes = new byte[packets.Length][];
+            for (int i = 0; i < packets.Length; i++)
+                packetsBytes[i] = packets[i].GetStreamBytes();
+            return packetsBytes;
         }
     }
 }

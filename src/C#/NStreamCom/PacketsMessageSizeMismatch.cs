@@ -2,7 +2,7 @@
 
 namespace NStreamCom
 {
-    internal class PacketsMessageSizeMismatch : Exception
+    public class PacketsMessageSizeMismatch : Exception
     {
         public PacketsMessageSizeMismatch(string Message = "")
             : base(Message)

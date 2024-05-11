@@ -67,7 +67,7 @@ namespace NStreamCom
                 Collect(data);
         }
 
-        public void Collecte(Stream data)
+        public void Collect(Stream data)
         {
             Collect(data.ReadAllBytes());
         }

@@ -1,0 +1,53 @@
+{
+    "repository_relative": "..",
+    "actions": [
+        {
+            "src": "lib/keywords.txt",
+            "dst": "keywords.txt",
+            "action": "move"
+        },
+        {
+            "src": "lib/library.properties",
+            "dst": "library.properties",
+            "action": "move"
+        },
+        {
+            "src": "lib",
+            "action": "delete"
+        },
+        {
+            "src": "test",
+            "action": "delete"
+        },
+        {
+            "src": ".vscode",
+            "action": "delete"
+        },
+        {
+            "src": ".vs",
+            "action": "delete"
+        },
+        {
+            "src": "NStreamCom.sln",
+            "action": "delete"
+        },
+        {
+            "src": "tools",
+            "action": "delete"
+        },
+        {
+            "src": "src/C++/NStreamCom",
+            "dst": "C++",
+            "action": "move"
+        },
+        {
+            "src": "src",
+            "action": "delete"
+        },
+        {
+            "src": "C++",
+            "dst": "src",
+            "action": "move"
+        }
+    ]
+}

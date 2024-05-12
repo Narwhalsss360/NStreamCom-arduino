@@ -32,6 +32,10 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NStreamComTester", "test\python\NStreamComTester\NStreamComTester.pyproj", "{911B58EA-E6E6-4B1E-BC71-B77E6E538908}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{06DAA442-5474-4147-BEC1-58E060114C0A}"
+	ProjectSection(SolutionItems) = preProject
+		tools\arduinofy.json = tools\arduinofy.json
+		tools\arduinofy.py = tools\arduinofy.py
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communicator", "Communicator", "{0111D9F9-E808-44EB-B60C-C5B1363A8D2F}"
 EndProject

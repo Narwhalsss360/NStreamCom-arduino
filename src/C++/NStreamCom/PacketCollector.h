@@ -4,7 +4,7 @@
 #include "NStreamComCommon.h"
 #include "Packet.h"
 
-using MessageReadyHandler = void (*)(const uint16_t id, void* data, uint16_t size);
+using MessageReadyHandler = void (*)(const messageid_t id, void* data, uint16_t size);
 
 class PacketCollector
 {

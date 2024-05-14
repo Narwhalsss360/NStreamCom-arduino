@@ -28,7 +28,7 @@ namespace NStreamCom
             {
                 collected = new Packet(data);
             }
-            catch (SizeMismatch)
+            catch (SizeMismatchException)
             {
                 Discard();
                 throw;
@@ -55,7 +55,7 @@ namespace NStreamCom
                     if (_bytesCollected != _packetsCollected.Last().MessageSize)
                     {
                         Discard();
-                        throw new PacketsLost();
+                        throw new PacketsLostException();
                     }
                     _recycle = true;
                 }

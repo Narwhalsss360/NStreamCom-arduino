@@ -44,9 +44,9 @@
     <Compile Include="Message.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="PacketCollector.cs" />
-    <Compile Include="PacketIDMismatch.cs" />
-    <Compile Include="PacketSizeDataMismatch.cs" />
-    <Compile Include="PacketsLost.cs" />
+    <Compile Include="IDMismatchException.cs" />
+    <Compile Include="SizeMismatchException.cs" />
+    <Compile Include="PacketsLostException.cs" />
     <Compile Include="PacketsReadyEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol.cs" />

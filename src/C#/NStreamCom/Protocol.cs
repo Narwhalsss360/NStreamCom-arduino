@@ -9,10 +9,10 @@ namespace NStreamCom
         public static void VerifyBytes(byte[] bytes)
         {
             if (bytes.Length < MetadataSize)
-                throw new SizeMismatch();
+                throw new SizeMismatchException();
 
             if (bytes.Length - MetadataSize != BitConverter.ToUInt16(bytes, 4))
-                throw new SizeMismatch();
+                throw new SizeMismatchException();
         }
 
         public static void VerifyPackets(this Packet[] packets)
@@ -27,14 +27,14 @@ namespace NStreamCom
             foreach (Packet packet in packets)
             {
                 if (packet.ID != id)
-                    throw new IDMismatch();
+                    throw new IDMismatchException();
                 if (packet.MessageSize != messageSize)
-                    throw new SizeMismatch();
+                    throw new SizeMismatchException();
                 sizeSum += (ushort)packet.Data.Length;
             }
 
             if (sizeSum != messageSize)
-                throw new SizeMismatch();
+                throw new SizeMismatchException();
         }
 
         public static byte[][] GetPacketsBytes(this Packet[] packets)

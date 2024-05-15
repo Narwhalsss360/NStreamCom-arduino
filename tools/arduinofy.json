@@ -48,6 +48,21 @@
             "src": "C++",
             "dst": "src",
             "action": "move"
+        },
+        {
+            "src": "examples/Arduino",
+            "dst": "Arduino",
+            "action": "move"
+        },
+        {
+            "src": "examples",
+            "action": "delete"
+        },
+        {
+            "src": "Arduino",
+            "dst": "examples",
+            "action": "move"
         }
     ]
 }
+

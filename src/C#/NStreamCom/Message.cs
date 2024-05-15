@@ -53,7 +53,7 @@ namespace NStreamCom
             return packets;
         }
 
-        public void WriteTo(ushort packetSize, Stream stream, TimeSpan interval)
+        public void WriteTo(ushort packetSize, Stream stream, TimeSpan? interval = null)
         {
             GetPackets(packetSize).GetPacketsBytes().WriteAllPacketsTo(stream, interval);
         }

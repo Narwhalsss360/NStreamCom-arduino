@@ -22,6 +22,9 @@ Packet::Packet()
 Packet::Packet(messageid_t id, uint16_t messageSize, const void* const data, const uint16_t length)
     : id(id), messageSize(messageSize), data(nullptr), dataLength(length), verified(true)
 {
+    if (data == nullptr)
+        return;
+
     this->data = new uint8_t[length];
     for (int i = 0; i < length; i++)
         this->data[i] = ((uint8_t*)(data))[i];
@@ -43,6 +46,9 @@ Packet::Packet(const uint8_t* const stream, uint32_t length)
     SET_BYTE_INTEGRAL(dataLength, 0, stream[4]);
     SET_BYTE_INTEGRAL(dataLength, 1, stream[5]);
 
+    if (dataLength == 0)
+        return;
+
     data = new uint8_t[dataLength];
 
     for (uint16_t iSource = NSTREAMCOM_PROTOCOLSIZE, iDestination = 0; iSource < length; iSource++, iDestination++)
@@ -52,6 +58,9 @@ Packet::Packet(const uint8_t* const stream, uint32_t length)
 Packet::Packet(const Packet& other)
     : id(other.id), messageSize(other.messageSize), data(nullptr), dataLength(other.dataLength), verified(other.verified)
 {
+    if (dataLength == 0)
+        return;
+
     data = new uint8_t[dataLength];
     for(uint16_t i = 0; i < dataLength; i++)
         data[i] = other.data[i];
@@ -99,8 +108,14 @@ Packet& Packet::operator=(const Packet& other)
     messageSize = other.messageSize;
     dataLength = other.dataLength;
     verified = other.verified;
+
     if (data)
         delete[] data;
+    data = nullptr;
+
+    if (dataLength == 0)
+        return *this;
+
     data = new uint8_t[dataLength];
     for (uint16_t i = 0; i < dataLength; i++)
         data[i] = other.data[i];
@@ -109,7 +124,14 @@ Packet& Packet::operator=(const Packet& other)
 
 bool Packet::operator==(const Packet& other) const
 {
-    return id == other.id && messageSize == other.messageSize && data == other.data && dataLength == other.dataLength;
+    if (id != other.id || messageSize != other.messageSize)
+        return false;
+    if (dataLength != other.dataLength)
+        return false;
+    for (int i = 0; i < dataLength; i++)
+        if (data[i] != other.data[i])
+            return false;
+    return true;
 }
 
 Packet::~Packet()

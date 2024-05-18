@@ -43,6 +43,9 @@ void fastWrite(__platform_ostream__& stream, const Packet* const packets, uint16
 Message::Message(Message& other)
 	: id(other.id), data(nullptr), dataLength(other.dataLength), verified(other.verified)
 {
+	if (dataLength == 0)
+		return;
+
 	data = new uint8_t[dataLength];
 	for (int i = 0; i < dataLength; i++)
 		data[i] = other.data[i];
@@ -56,6 +59,11 @@ Message::Message(Message&& other)
 Message::Message(const messageid_t id, const void* const data, const uint16_t length)
 	: id(id), data(nullptr), dataLength(length), verified(true)
 {
+	if (data == nullptr)
+		dataLength = 0;
+	if (dataLength == 0)
+		return;
+
 	this->data = new uint8_t[dataLength];
 
 	for (int i = 0; i < dataLength; i++)
@@ -71,8 +79,11 @@ Message::Message(const Packet* const packets, const uint16_t length)
 
 	id = packets[0].getID();
 	dataLength = packets[0].getMessageSize();
+	if (dataLength == 0)
+		return;
+
 	data = new uint8_t[dataLength];
-	
+
 	for (uint16_t iDestination = 0, iPacket = 0, iSource = 0; iDestination < dataLength; iDestination++, iSource++)
 	{
 		if (packets[iPacket].getDataSize() == iSource)
@@ -80,7 +91,8 @@ Message::Message(const Packet* const packets, const uint16_t length)
 			iSource = 0;
 			iPacket++;
 		}
-		data[iDestination] = ((uint8_t*)packets[iPacket].getData())[iSource];
+		if (dataLength != 0)
+			data[iDestination] = ((uint8_t*)packets[iPacket].getData())[iSource];
 	}
 }
 
@@ -106,7 +118,12 @@ uint16_t Message::getPackets(Packet*& packets, uint16_t packetSize) const
 	packets = new Packet[packetCount];
 
 	for (uint16_t iPacket = 0; iPacket < packetCount; iPacket++)
-		packets[iPacket] = Packet(id, dataLength, &(data[iPacket * packetSize]), (iPacket == packetCount - 1 ? dataLength - (iPacket * packetSize) : packetSize));
+	{
+		packets[iPacket] = Packet(id,
+		dataLength,
+		data ? &(data[iPacket * packetSize]) : nullptr,
+		(iPacket == packetCount - 1 ? dataLength - (iPacket * packetSize) : packetSize));
+	}
 
 	return packetCount;
 }

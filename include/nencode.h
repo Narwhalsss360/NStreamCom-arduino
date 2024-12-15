@@ -1,4 +1,5 @@
 #pragma once
+
 #include "nsize.h"
 
 namespace nstreamcom {
@@ -27,6 +28,26 @@ namespace nstreamcom {
         }
     }
 
+    template <typename T, typename encoded_it>
+    void encode(const T& data, encoded_it encoded_begin, encoded_it encoded_end) {
+        encode<const uint8_t*, encoded_it>(
+            reinterpret_cast<const uint8_t*>(&data),
+            reinterpret_cast<const uint8_t*>(&data) + sizeof(data),
+            encoded_begin,
+            encoded_end
+        );
+    }
+
+    template <typename T>
+    void encode(const T& data, uint8_t (&encoded)[as_transmission_size(sizeof(T))]) {
+        encode<const uint8_t*, uint8_t*>(
+            reinterpret_cast<const uint8_t*>(&data),
+            reinterpret_cast<const uint8_t*>(&data) + sizeof(data),
+            encoded,
+            encoded + sizeof(encoded)
+        );
+    }
+
     template <typename encoded_it, typename data_it>
     void decode(encoded_it encoded_begin, encoded_it encoded_end, data_it data_begin, data_it data_end) {
         uint8_t right_shift = 0;
@@ -49,5 +70,25 @@ namespace nstreamcom {
                 *data_begin |= (*encoded_begin & ~(0xFF << DATA_BITS)) << left_next;
             }
         }
+    }
+
+    template <typename encoded_it, typename T>
+    void decode(encoded_it encoded_begin, encoded_it encoded_end, T& data) {
+        decode<encoded_it, uint8_t*>(
+            encoded_begin,
+            encoded_end,
+            reinterpret_cast<uint8_t*>(&data),
+            reinterpret_cast<uint8_t*>(&data) + sizeof(T)
+        );
+    }
+
+    template <typename T>
+    void decode(uint8_t (&encoded)[as_transmission_size(sizeof(T))], T& data) {
+        decode<uint8_t*, uint8_t*>(
+            encoded,
+            encoded + sizeof(encoded),
+            reinterpret_cast<uint8_t*>(&data),
+            reinterpret_cast<uint8_t*>(&data) + sizeof(T)
+        );
     }
 }

@@ -14,7 +14,7 @@ ifeq ($(OS),Windows_NT)
 	ensure_dir = @if not exist $(subst /,\,$(dir $1)) mkdir $(subst /,\,$(dir $1))
 	rrmdir = rmdir $1 /s /q
 else
-	CPPC = gcc
+	CPPC = g++
 	CFLAGS = -g -std=c++11 -Wall $(foreach DIR,$(INCLUDE_DIRECTORIES),-I'$(DIR)') -c
 	OUTPUT_FLAG = -o 
 	ensure_dir = mkdir -p $1

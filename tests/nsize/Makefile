@@ -21,11 +21,11 @@ ifeq ($(OS),Windows_NT)
 	rrmdir = rmdir $1 /s /q
 else
 	BINARY = $(BINARY_NAME).out
-	CPPC = gcc
+	CPPC = g++
 	CFLAGS = -g -std=c++11 -Wall $(foreach DIR,$(INCLUDE_DIRECTORIES),-I'$(DIR)') -c
 	OUTPUT_FLAG = -o 
 
-	LINKER = gcc
+	LINKER = g++
 	LINKER_OUTPUT_FLAG = -o 
 
 	ensure_dir = mkdir -p $1

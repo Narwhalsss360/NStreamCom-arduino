@@ -48,6 +48,27 @@ namespace nstreamcom {
         );
     }
 
+    template <typename data_it, typename encoded_it>
+    void encode_with_size(data_it data_begin, data_it data_end, nsize size, encoded_it encoded_begin, encoded_it encoded_end) {
+        size.encode();
+        for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE && encoded_begin != encoded_end; i++, ++encoded_begin) {
+            *encoded_begin = size.bytes[i];
+        }
+
+        encode<data_it, encoded_it>(data_begin, data_end, encoded_begin, encoded_end);
+    }
+
+    template <typename T>
+    void encode_with_size(const T& data, uint8_t (&encoded)[as_collected_size(sizeof(T))]) {
+        encode_with_size<const uint8_t*, uint8_t*>(
+            reinterpret_cast<const uint8_t*>(&data),
+            reinterpret_cast<const uint8_t*>(&data) + sizeof(data),
+            nsize((nsize_int)sizeof(T)),
+            encoded,
+            encoded + sizeof(encoded)
+        );
+    }
+
     template <typename encoded_it, typename data_it>
     void decode(encoded_it encoded_begin, encoded_it encoded_end, data_it data_begin, data_it data_end) {
         uint8_t right_shift = 0;

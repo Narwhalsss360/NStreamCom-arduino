@@ -28,10 +28,14 @@ struct stack_str {
 int main() {
     using std::cout;
     using std::endl;
+    using nstreamcom::nsize;
     using nstreamcom::as_transmission_size;
+    using nstreamcom::as_collected_size;
     using nstreamcom::as_data_size;
     using nstreamcom::encode;
+    using nstreamcom::encode_with_size;
     using nstreamcom::decode;
+    using nstreamcom::ENCODED_NSIZE_SIZE;
 
     const uint8_t str[] = "Lorem ipsum dolor sit amet, consectetur adipiscing nunc";
 
@@ -107,7 +111,88 @@ int main() {
         }
     }
 
+    uint8_t encoded_custom_type_with_size[as_collected_size(sizeof(custom_type))];
+    encode_with_size(custom_type, encoded_custom_type_with_size);
 
+    nsize decoded_size = nsize((nsize::nsize_int_bytes&)encoded_custom_type_with_size);
+    decoded_size.decode();
+    stack_str decoded_custom_type_with_size;
+
+    if (decoded_size != sizeof(custom_type)) {
+        cout << "Error, encoded size mismatch, line:" << __LINE__ << endl;
+        return 1;
+    }
+
+    decode(
+        encoded_custom_type_with_size + ENCODED_NSIZE_SIZE,
+        encoded_custom_type_with_size + sizeof(encoded_custom_type_with_size),
+        decoded_custom_type_with_size
+    );
+
+    if (custom_type.length != decoded_custom_type_with_size.length) {
+        cout << "Error, encode/decode, line:" << __LINE__ << endl;
+        return 1;
+    }
+
+    for (size_t i = 0; i < custom_type.length; i++) {
+        if (custom_type.str[i] != decoded_custom_type_with_size.str[i]) {
+            cout << "Error, encode/decode, line:" << __LINE__ << endl;
+            return 1;
+        }
+    }
+
+    const uint8_t byte_array[] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    uint8_t encoded_byte_array[as_transmission_size(sizeof(byte_array))];
+    uint8_t decoded_byte_array[as_data_size(sizeof(encoded_byte_array))];
+
+    encode(byte_array, encoded_byte_array);
+    decode(encoded_byte_array, decoded_byte_array);
+
+    for (size_t i = 0; i < sizeof(byte_array); i++) {
+        if (byte_array[i] != decoded_byte_array[i]) {
+            cout << "Error, encode/decode, line:" << __LINE__ << endl;
+            return 1;
+        }
+    }
+
+    nsize heap_byte_array_size = 8;
+    const uint8_t* heap_byte_array = new const uint8_t[heap_byte_array_size] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+    nsize heap_encoded_byte_array_size = as_transmission_size(heap_byte_array_size);
+    uint8_t* heap_encoded_byte_array = new uint8_t[heap_encoded_byte_array_size];
+
+    nsize heap_decoded_byte_array_size = as_data_size(heap_encoded_byte_array_size);
+    uint8_t* heap_decoded_byte_array = new uint8_t[heap_decoded_byte_array_size];
+
+    encode(
+        heap_byte_array,
+        heap_byte_array + (int)heap_byte_array_size,
+        heap_encoded_byte_array,
+        heap_encoded_byte_array + (int)heap_encoded_byte_array_size
+    );
+
+    decode(
+        heap_encoded_byte_array,
+        heap_encoded_byte_array + (int)heap_encoded_byte_array_size,
+        heap_decoded_byte_array,
+        heap_decoded_byte_array + (int)heap_decoded_byte_array_size
+    );
+
+    if (heap_byte_array_size != heap_decoded_byte_array_size) {
+        cout << "Error, size mismatch, line:" << __LINE__ << endl;
+        return 1;
+    }
+
+    for (nsize i = 0; i < heap_byte_array_size; i++) {
+        if (heap_byte_array[(int)i] != heap_decoded_byte_array[(int)i]) {
+            cout << "Error, encode/decode, line:" << __LINE__ << endl;
+            return 1;
+        }
+    }
+
+    delete[] heap_byte_array;
+    delete[] heap_encoded_byte_array;
+    delete[] heap_decoded_byte_array;
 
     cout << "Success!" << endl;
     return 0;

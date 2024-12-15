@@ -13,7 +13,7 @@ nsize::nsize(const nsize_int& size)
 nsize::nsize(const nsize_int_bytes& bytes)
     : _is_encoded(true)
 {
-    for (int8_t i = 0; i < ENCODED_NSIZE_SIZE; i++) {
+    for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
         this->bytes[i] = bytes[i];
     }
 }
@@ -34,7 +34,7 @@ nsize& nsize::operator=(const nsize_int& size) {
 }
 
 nsize& nsize::operator=(const nsize& other) {
-    for (int8_t i = 0; i < ENCODED_NSIZE_SIZE; i++) {
+    for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
         bytes[i] = other.bytes[i];
     }
     _is_encoded = other._is_encoded;
@@ -42,7 +42,7 @@ nsize& nsize::operator=(const nsize& other) {
 }
 
 nsize::nsize_int_bytes& nsize::operator=(const nsize::nsize_int_bytes& other_bytes) {
-    for (int8_t i = 0; i < ENCODED_NSIZE_SIZE; i++) {
+    for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
         bytes[i] = other_bytes[i];
     }
     return bytes;
@@ -90,7 +90,7 @@ nsize_int& nsize::decode() {
 }
 
 void nsize::fill_trail() {
-    for (int8_t i = sizeof(nsize_int); i < ENCODED_NSIZE_SIZE; i++) {
+    for (nsize_int i = sizeof(nsize_int); i < ENCODED_NSIZE_SIZE; i++) {
         bytes[i] = 0;
     }
 }

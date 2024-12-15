@@ -1,4 +1,5 @@
 #include <nsize.h>
+#include <nencode.h>
 
 using namespace nstreamcom;
 
@@ -52,10 +53,39 @@ bool nsize::encoded() const {
 }
 
 nsize::nsize_int_bytes& nsize::encode() {
+    if (_is_encoded) {
+        return bytes;
+    }
+
+    nsize_int_bytes encoded_bytes;
+
+    nstreamcom::encode<uint8_t*, uint8_t*>(
+        bytes,
+        bytes + sizeof(nsize_int),
+        encoded_bytes,
+        encoded_bytes + ENCODED_NSIZE_SIZE
+    );
+
+    *this = encoded_bytes;
+
+    _is_encoded = true;
     return bytes;
 }
 
 nsize_int& nsize::decode() {
+    if (!_is_encoded) {
+        return (nsize_int&)*this;
+    }
+
+    nstreamcom::decode<uint8_t*, uint8_t*>(
+        bytes,
+        bytes + ENCODED_NSIZE_SIZE,
+        bytes,
+        bytes + sizeof(nsize_int)
+    );
+
+
+
     return (nsize_int&)*this;
 }
 

@@ -33,17 +33,9 @@ nsize& nsize::operator=(const nsize_int& size) {
     return *this;
 }
 
-nsize& nsize::operator=(const nsize& other) {
-    for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
-        bytes[i] = other.bytes[i];
-    }
-    _is_encoded = other._is_encoded;
-    return *this;
-}
-
 nsize::nsize_int_bytes& nsize::operator=(const nsize::nsize_int_bytes& other_bytes) {
     for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
-        bytes[i] = other_bytes[i] | (0xFF << DATA_BITS);
+        bytes[i] = (uint8_t)(other_bytes[i] | (0xFF << DATA_BITS));
     }
     return bytes;
 }

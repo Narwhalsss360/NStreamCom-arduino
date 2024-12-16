@@ -48,8 +48,6 @@ namespace nstreamcom {
 
         nsize& operator=(const nsize_int& other);
 
-        nsize& operator=(const nsize& other);
-
         nsize_int_bytes& operator=(const nsize_int_bytes& bytes);
 
         bool encoded() const;

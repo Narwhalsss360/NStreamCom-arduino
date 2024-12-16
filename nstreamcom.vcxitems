@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)include\buffered_decoder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\collector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\nencode.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\nsize.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\nstreamcom.h" />

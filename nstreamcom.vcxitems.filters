@@ -10,6 +10,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)include\nstreamcom.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\buffered_decoder.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

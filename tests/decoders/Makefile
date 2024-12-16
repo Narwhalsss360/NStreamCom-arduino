@@ -1,6 +1,6 @@
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
-BINARY_NAME = test
+BINARY_NAME = $(notdir $(CURDIR))
 BINARIES_DIRECTORY = bin
 INCLUDE_DIRECTORIES = NStreamCom/include
 SOURCES_DIRECTORIES = .

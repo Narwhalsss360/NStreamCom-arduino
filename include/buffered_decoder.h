@@ -30,7 +30,7 @@ namespace nstreamcom {
 
         void reset() {
             _previous = _begin;
-            position = _begin;
+            _position = _begin;
             _right_shift = 0;
         }
 

@@ -43,7 +43,7 @@ nsize& nsize::operator=(const nsize& other) {
 
 nsize::nsize_int_bytes& nsize::operator=(const nsize::nsize_int_bytes& other_bytes) {
     for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
-        bytes[i] = other_bytes[i];
+        bytes[i] = other_bytes[i] | (0xFF << DATA_BITS);
     }
     return bytes;
 }
@@ -77,14 +77,16 @@ nsize_int& nsize::decode() {
         return (nsize_int&)*this;
     }
 
+    for (nsize_int i = 0; i < ENCODED_NSIZE_SIZE; i++) {
+        bytes[i] &= ~(0xFF << DATA_BITS);
+    }
+
     nstreamcom::decode<uint8_t*, uint8_t*>(
         bytes,
         bytes + ENCODED_NSIZE_SIZE,
         bytes,
         bytes + sizeof(nsize_int)
     );
-
-
 
     return (nsize_int&)*this;
 }

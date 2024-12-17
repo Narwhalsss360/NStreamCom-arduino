@@ -35,7 +35,7 @@ namespace nstreamcom {
         void reset() {
             _next_size = 0;
             _decoder.reset();
-            _state = collector_states::MISSING_SIZE;
+            _state = collector_states::WAITING_SIZE;
         }
 
         collector_states collect(uint8_t byte) {

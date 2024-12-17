@@ -709,3 +709,4 @@ dkms.conf
 # ignorer 2024-12-15T21:44:12.343846 === Generated source ignore file. ===
 
 tests/*/NStreamCom
+examples/*/NStreamCom

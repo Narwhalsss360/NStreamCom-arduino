@@ -1,0 +1,14 @@
+name: Test All
+
+on:
+    push:
+        branches:
+            - "c\\+\\+"
+
+jobs:
+    testall:
+        runs-on: ubuntu-latest
+        name: Test all
+        steps:
+            - uses: actions/checkout@v3
+            - run: sh testall.sh

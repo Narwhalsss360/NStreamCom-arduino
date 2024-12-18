@@ -20,7 +20,11 @@ actions:
   - action: delete
     path: include
   - action: delete
+<<<<<<< HEAD
     path: Makefile
   - action: delete
     path: releasify.yml
 
+=======
+    path: releasify.yml
+>>>>>>> ada4f12 (Prepared arduino-dev branch)

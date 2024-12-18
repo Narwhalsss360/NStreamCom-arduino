@@ -35,7 +35,7 @@ int main() {
 
     vector<uint8_t> buffer;
     auto heap_decoder = buffered_decoder<vector<uint8_t>::iterator>(buffer.begin(), buffer.end());
-    for (int i = 0; i < sizeof(encoded_str); i++) {
+    for (size_t i = 0; i < sizeof(encoded_str); i++) {
         if (!heap_decoder.next(encoded_str[i], i == sizeof(encoded_str) - 1)) {
             int index = heap_decoder.position() - buffer.begin();
             buffer.resize(buffer.size() + 1);

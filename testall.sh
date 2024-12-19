@@ -33,6 +33,7 @@ do
     program_code=$?
     if [ ! $program_code -eq 0 ]; then
         printf "Test %s failed with %d\n" $test $program_code
+        exit $program_code
     else
         echo $output
     fi

@@ -14,15 +14,7 @@ namespace nstreamcom {
     constexpr const nsize_int MAX_DATA_SIZE = UINT32_MAX * DATA_BITS / 8;
 
     constexpr nsize_int as_transmission_size(const nsize_int& data_size) {
-        return (
-            MAX_DATA_SIZE <= data_size ?
-            MAX_DATA_SIZE :
-            (
-                data_size == 0 ?
-                0 :
-                ((data_size * 8) + DATA_BITS - 1) / DATA_BITS
-            )
-        );
+        return ((data_size * 8) + DATA_BITS - 1) / DATA_BITS;
     }
 
     constexpr nsize_int as_collected_size(const nsize_int& data_size) {

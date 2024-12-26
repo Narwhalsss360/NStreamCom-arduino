@@ -20,4 +20,7 @@ actions:
   - action: delete
     path: include
   - action: delete
+    path: Makefile
+  - action: delete
     path: releasify.yml
+

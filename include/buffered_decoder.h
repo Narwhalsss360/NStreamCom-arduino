@@ -53,7 +53,11 @@ namespace nstreamcom {
                 if (_position != _begin) {
                     ++_previous;
                 }
-                ++_position;
+
+                if (!last) {
+                    ++_position;
+                }
+
                 ++_right_shift;
             }
 

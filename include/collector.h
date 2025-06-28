@@ -4,10 +4,10 @@
 namespace nstreamcom {
     enum class collector_states : uint8_t {
         COLLECTED,
-        MISSING_SIZE,
-        MISSING_DATA,
         WAITING_SIZE,
         WAITING_DATA,
+        MISSING_SIZE,
+        MISSING_DATA,
         BUFFER_FULL
     };
 
@@ -46,14 +46,15 @@ namespace nstreamcom {
             switch (_state)
             {
             case collector_states::COLLECTED:
-            case collector_states::MISSING_SIZE:
-            case collector_states::MISSING_DATA:
-                reset();
             case collector_states::WAITING_SIZE:
                 _collect_size_byte(byte);
                 break;
             case collector_states::WAITING_DATA:
                 _collect_data_byte(byte);
+                break;
+            case collector_states::MISSING_SIZE:
+            case collector_states::MISSING_DATA:
+                reset();
             case collector_states::BUFFER_FULL:
             default:
                 break;
@@ -64,6 +65,10 @@ namespace nstreamcom {
 
         buffered_decoder& decoder() {
             return _decoder;
+        }
+
+        bool error_state() const {
+            return _state >= collector_states::MISSING_SIZE;
         }
 
         nsize next_size() {

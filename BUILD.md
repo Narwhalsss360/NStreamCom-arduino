@@ -7,7 +7,7 @@
 * `<stdlib.h>`
     * `size_t` type
 
-**Version**: *c++11*
+**C++ Version**: *c++11*
 
 # Include Directories
 
@@ -16,3 +16,7 @@
 # Sources (Translation Units)
 
 * src/*.cpp
+
+---
+
+*v0.1.0*

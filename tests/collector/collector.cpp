@@ -54,6 +54,21 @@ int main() {
         }
     }
 
+    const auto& const_decoder = byte_collector.decoder();
+    if (const_decoder.end() - const_decoder.begin() != byte_collector.next_size()) {
+        cout << "Error, decoder begin/end " << __LINE__ << endl;
+        return 1;
+    }
+
+    nsize_int i = 0;
+    for (const uint8_t& b : const_decoder) {
+        if (b != decoded[i]) {
+            cout << "Error, encode/decode" << __LINE__ << endl;
+            return 1;
+        }
+        i++;
+    }
+
     vector<uint8_t> buffer;
     auto vector_byte_collector = collector<buffered_decoder<vector<uint8_t>::iterator>>(buffer.begin(), buffer.end());
 

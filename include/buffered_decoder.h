@@ -18,7 +18,15 @@ namespace nstreamcom {
         }
 
         buffer_it end() {
-            return _end;
+            return _position;
+        }
+
+        buffer_it begin() const {
+            return _begin;
+        }
+
+        buffer_it end() const {
+            return _position;
         }
 
         void use(buffer_it buffer_begin, buffer_it buffer_end, buffer_it position, buffer_it previous) {
